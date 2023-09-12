@@ -6,20 +6,20 @@ import ru.antizep.error.InputsCountError;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class NeironTest {
+class NeuronTest {
     public static final int countSignal = 10;
-    private Neiron neiron;
+    private Neuron neuron;
     @BeforeEach
     void setUp() {
-        neiron = new Neiron(10);
+        neuron = new Neuron(10);
     }
 
     @Test
     void invalidCountSignal() {
-        assertThrows(InputsCountError.class,()->neiron.getExit(new double[]{}));
+        assertThrows(InputsCountError.class,()-> neuron.getExit(new double[]{}));
     }
     @Test
     void validDataDump(){
-        assertDoesNotThrow(()->neiron.getExit(new double[countSignal]));
+        assertDoesNotThrow(()-> neuron.getExit(new double[countSignal]));
     }
 }

@@ -1,32 +1,31 @@
 package ru.antizep;
 
-import ru.antizep.barain.Neiron;
+import ru.antizep.barain.Neuron;
+import ru.antizep.barain.NeuronNetwork;
 import ru.antizep.error.InputsCountError;
 
+import java.util.Arrays;
+
 public class Main {
-    static double[] data = Neiron.generateRandomArray(10);
-    static double[] targetData = Neiron.generateRandomArray(10);
+    static double[] data = Neuron.generateRandomArray(512);
+    static double[] targetData = Neuron.generateRandomArray(512);
 
     public static void main(String[] args) throws InputsCountError {
         System.out.println("start");
-        Neiron[] inputSlice = Neiron.generateNeiron(10, 10);
-        Neiron[] hidden1Slice = Neiron.generateNeiron(20, 10);
-        Neiron[] hidden2Slice = Neiron.generateNeiron(20, 20);
-        Neiron[] exitSlice = Neiron.generateNeiron(10, 20);
+        NeuronNetwork neuronNetwork = new NeuronNetwork();
+        neuronNetwork.addInputSlice(512,512);
+        neuronNetwork.addHiddenSlice(1028);
+        neuronNetwork.addHiddenSlice(512);
 
-        double[] inputSliceExits = getExits(inputSlice, data);
-        double[] hidden1SliceExits = getExits(hidden1Slice,inputSliceExits);
-        double[] hidden2SliceExits = getExits(hidden2Slice,hidden1SliceExits);
-        double[] exitSliceExits = getExits(exitSlice,hidden2SliceExits);
-
-        System.out.println("final");
-    }
-
-    static double[] getExits(Neiron[] slice, double[] signals) throws InputsCountError {
-        double[] exits = new double[slice.length];
-        for (int i = 0; i < exits.length; i++) {
-            exits[i] = slice[i].getExit(signals);
+        double[] res;
+        int i = 0;
+        while (i <= 5000) {
+            res =  neuronNetwork.getResult(data);
+            neuronNetwork.toLearn(targetData);
+            System.out.println("res:  "+Arrays.toString(res));
+            System.out.println("tgt:  "+ Arrays.toString(targetData));
+            i++;
         }
-        return exits;
+
     }
 }
