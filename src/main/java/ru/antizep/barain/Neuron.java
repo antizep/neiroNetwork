@@ -1,9 +1,9 @@
 package ru.antizep.barain;
 
+import org.json.JSONPropertyIgnore;
 import ru.antizep.Mathematics;
 import ru.antizep.MathematicsImpl;
 import ru.antizep.activation.ActivationFunction;
-import ru.antizep.activation.ActivationFunctionRelu;
 import ru.antizep.activation.ActivationFunctionSig;
 import ru.antizep.error.InputsCountError;
 
@@ -11,8 +11,8 @@ public class Neuron {
     public static final double learningSpeed = 0.01;
     private double[] weights;
     private double slip = Math.random();
-    private Mathematics mathematics = new MathematicsImpl();
 
+    private Mathematics mathematics = new MathematicsImpl();
     private ActivationFunction activationFunction;
     private double exit = 0;
     private double error = 0;
@@ -79,8 +79,8 @@ public class Neuron {
      * @param actual правильное значение
      */
     public void calculateError(double actual) {
-        //double error = Math.pow(exit - actual, 2) / 2;
-        double error = exit - actual;
+//        double error = Math.pow(exit - actual, 2) / 2;
+       double error = exit - actual;
         calculateError(new double[]{error});
 
     }
@@ -92,12 +92,21 @@ public class Neuron {
         error = mathematics.summArray(errors) * activationFunction.calcDerivativeFunction(exit);
         calculateErrorInput();
     }
-
+    @JSONPropertyIgnore
     public double[] getInputErrors() {
         return inputErrors;
     }
 
+    @JSONPropertyIgnore
     public double getError() {
         return error;
+    }
+
+    public double[] getWeights() {
+        return weights;
+    }
+
+    public double getSlip() {
+        return slip;
     }
 }

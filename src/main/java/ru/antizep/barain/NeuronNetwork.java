@@ -1,5 +1,8 @@
 package ru.antizep.barain;
 
+import org.json.JSONArray;
+import ru.antizep.Mathematics;
+import ru.antizep.MathematicsImpl;
 import ru.antizep.error.InputsCountError;
 
 import java.util.LinkedList;
@@ -35,8 +38,12 @@ public class NeuronNetwork {
         }
     }
 
+    public void saveNeuron(){
+        JSONArray array = new JSONArray(slices);
+        System.out.println(array);
+    }
 
-    static void learn(Neuron[] slice){
+    private void learn(Neuron[] slice){
         for (Neuron neuron : slice) {
             neuron.updateWeightsAndSlip();
         }
@@ -66,5 +73,15 @@ public class NeuronNetwork {
             exits[i] = slice[i].getExit(signals);
         }
         return exits;
+    }
+
+    public double error(){
+        Mathematics mathematics = new MathematicsImpl();
+        double summError = 0;
+        Neuron[] exitSlice = slices.getLast();
+        for (int i = 0; i < exitSlice.length; i++) {
+            summError+= exitSlice[i].getError();
+        }
+        return summError/exitSlice.length;
     }
 }

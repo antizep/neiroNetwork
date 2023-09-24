@@ -18,7 +18,7 @@ public class ActivationFunctionRelu implements ActivationFunction {
     @Override
     public double calcDerivativeFunction(double input) {
         if(input<0){
-            return 0.01;
+            return slice;
         }else {
             return 1;
         }
