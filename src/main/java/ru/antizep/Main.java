@@ -20,7 +20,7 @@ public class Main {
         System.out.println("start");
         NeuronNetwork neuronNetwork = new NeuronNetwork();
         neuronNetwork.addInputSlice(512, 512);
-
+    ////
         neuronNetwork.addHiddenSlice(256);
 
         neuronNetwork.addHiddenSlice(512);
@@ -29,7 +29,7 @@ public class Main {
         byte[] my = SoundEditor.loadSound("/home/antizep/git/neiro/my.wav");
         int epoch = 0;
         List<Byte> totalConverted = new ArrayList<>();
-        while (epoch < 100) {
+        while (epoch < 10000) {
             totalConverted.clear();
             List<Byte> originalPart = new ArrayList<>();
             List<Byte> myPart = new ArrayList<>();
